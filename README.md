@@ -1,6 +1,6 @@
 # MirrorFight
 
-Application MVP de mediation relationnelle avec integration IA reelle via Gemini API key.
+Application de mediation relationnelle avec integration IA reelle via Gemini Developer API.
 
 L utilisateur decrit un conflit, puis l application:
 
@@ -13,131 +13,65 @@ L utilisateur decrit un conflit, puis l application:
 
 - Frontend: React 18 + Vite + CSS global
 - Backend: Node.js + Express
-- LLM: Gemini via API key (Google AI Studio)
-- State management frontend: useState + useReducer
+- LLM: Gemini via @google/genai
+- Auth: Cle API Gemini (GEMINI_API_KEY)
 
 Modele recommande pour MVP (cout/latence): gemini-2.5-flash
 
-## Architecture finale
+## Architecture
 
-- Le frontend appelle une API interne: POST /api/mirrorfight
-- Le backend orchestre prompts + historique et appelle Gemini (API key)
-- La cle/les credentials ne sont jamais exposes dans le frontend
-- Le backend gere 3 actions:
-1. mirror
-2. dialogue
-3. synthesis
-
-## API backend
-
-Route unique:
-
-- POST /api/mirrorfight
-
-Body:
-
-```json
-{
-	"action": "mirror | dialogue | synthesis",
-	"payload": {}
-}
-```
+- Le frontend appelle POST /api/mirrorfight
+- Le backend orchestre prompts + historique et appelle Gemini API
+- Le backend gere 3 actions: mirror, dialogue, synthesis
+- Aucun secret n est expose dans le frontend
 
 ## Variables d environnement
 
 Copier .env.example vers .env puis renseigner:
 
 ```bash
-GEMINI_API_KEY=ta-cle-gemini
+GEMINI_API_KEY=ta_cle_api_gemini
 GEMINI_API_MODEL=gemini-2.5-flash
 SERVER_PORT=8787
 ```
 
-Notes:
+Variable alternative supportee:
 
-- Le backend fonctionne uniquement avec GEMINI_API_KEY.
-- La cle reste cote backend, jamais exposee au frontend.
+- GOOGLE_API_KEY
 
-Option frontend:
+## Setup Gemini API
 
-- VITE_API_BASE_URL (utile si frontend et backend sont deployes sur des domaines differents)
+1. Ouvrir Google AI Studio et generer une cle API.
+2. Activer l API Generative Language si necessaire:
 
-## NPM packages
+```bash
+https://console.developers.google.com/apis/api/generativelanguage.googleapis.com/overview
+```
 
-Dependances principales:
+3. Mettre la cle dans .env:
 
-- @google/genai
-- express
-- dotenv
-- react
-- react-dom
-- vite
+```bash
+GEMINI_API_KEY=ta_cle_api_gemini
+```
 
-## Lancer le projet
-
-1. Installer les dependances:
+4. Lancer le projet:
 
 ```bash
 npm install
-```
-
-2. Creer le .env:
-
-```bash
 cp .env.example .env
-```
-
-3. Renseigner GEMINI_API_KEY dans le fichier .env.
-
-4. Lancer frontend + backend en dev:
-
-```bash
 npm run dev
 ```
 
-5. Build frontend:
+## Lancer le projet
+
+```bash
+npm install
+cp .env.example .env
+npm run dev
+```
+
+## Build
 
 ```bash
 npm run build
-```
-
-6. Run serveur (mode production):
-
-```bash
-npm run start
-```
-
-## Fichiers modifies pour Gemini
-
-- server/index.js
-- server/llmClient.js
-- server/prompts.js
-- package.json
-- .env.example
-- README.md
-
-## Structure
-
-```text
-server/
-├── index.js
-├── llmClient.js
-└── prompts.js
-
-src/
-├── App.jsx
-├── components/
-│   ├── IntroScreen.jsx
-│   ├── ConflictInput.jsx
-│   ├── MirrorView.jsx
-│   ├── DialogueMode.jsx
-│   ├── ConvergenceMeter.jsx
-│   ├── Synthesis.jsx
-│   └── MessageBubble.jsx
-├── utils/
-│   └── mirrorfightApi.js
-├── styles/
-│   └── global.css
-└── data/
-		└── mockScenarios.js
 ```

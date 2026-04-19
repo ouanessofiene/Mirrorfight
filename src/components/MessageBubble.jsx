@@ -4,7 +4,7 @@ function MessageBubble({ role, text }) {
   return (
     <article className={`bubble ${isUser ? "bubble-user" : "bubble-other"}`}>
       <p className="bubble-author">{isUser ? "Toi" : "Autre"}</p>
-      <p>{text}</p>
+      <p className="long-text-block">{text}</p>
     </article>
   );
 }

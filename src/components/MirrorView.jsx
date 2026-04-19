@@ -11,7 +11,7 @@ function MirrorView({ mirrorData, onBack, onContinue }) {
       <h2>Perspective adverse</h2>
 
       <div className="mirror-card reveal-in">
-        <p>{mirrorData?.perspective || "La perspective adverse apparaitra ici."}</p>
+        <p className="long-text-block">{mirrorData?.perspective || "La perspective adverse apparaitra ici."}</p>
       </div>
 
       <div className="emotion-list" aria-label="Emotions detectees">

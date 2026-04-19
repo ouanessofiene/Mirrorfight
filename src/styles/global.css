@@ -414,6 +414,12 @@ p {
   color: rgba(232, 230, 227, 0.78);
 }
 
+.long-text-block {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 .thinking-row {
   align-self: flex-start;
   display: inline-flex;
